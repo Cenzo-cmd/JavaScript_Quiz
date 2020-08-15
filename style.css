@@ -1,0 +1,17 @@
+body {
+    background-color: grey;
+}
+
+.buttons {
+    padding: 40px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.card {
+    width: 80% auto;
+}
+
+.hide {
+    display: none;
+}
