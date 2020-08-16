@@ -9,20 +9,19 @@ $(document).ready(function() {
 
     let initials = "";
     let timer = 60;
-    let highScore = 0;
     let timeInterval;
     let currentScore = 0;
 
 
 
     let questions = [{
-        question: "What is one + 1",
-        choices: ["2", "6", "4", "5"],
-        correctAnswer: "2"
+        question: "Which tag inserts Javascript into the HTML page",
+        choices: ["<script>", "<javascript>", "<body>", "<head>"],
+        correctAnswer: "<script>"
     }, {
-        question: "what is 2+2",
-        choices: ["2", "6", "4", "5"],
-        correctAnswer: "4",
+        question: "How do you say Hello World in an alert box",
+        choices: ["show('Hello World')", "push('Hello World')", "alert('Hello World')", "msg('Hello World')"],
+        correctAnswer: "alert('Hello World')",
 
     }, {
         question: "what is 4 + 2",
@@ -79,7 +78,7 @@ $(document).ready(function() {
 
                 } else {
                     $("#question-container").empty();
-                    clearInterval(timeInterval);
+                    gameOver();
 
                 }
             })
@@ -109,8 +108,9 @@ $(document).ready(function() {
         timeInterval = setInterval(function() {
             if (timer <= -1) {
                 timerEl.text("You are out of time!");
-                clearInterval(timer);
                 questionEl.addClass("hide");
+                gameOver();
+
 
             } else {
                 timer--;
@@ -125,9 +125,37 @@ $(document).ready(function() {
         //display the current score
         //compare current score to high score
         //update high score if needed
+        let highScores = loadHighScores();
+
+        if (highScores) {
+            highScores.push({ name: initials, score: currentScore });
+            highScores.sort((a, b) => (a.score > b.score) ? -1 : 1);
+            if (highScores.length > 5) {
+                highScores.pop();
+            }
+        } else {
+            highScores = [{ name: initials, score: currentScore }];
+        }
+        saveHighScore(highScores);
+        clearInterval(timeInterval);
 
 
-    };
+
+
+    }
+
+    function saveHighScore(highScores) {
+        localStorage.setItem("highScores", JSON.stringify(highScores));
+    }
+
+    function loadHighScores() {
+
+        let highScores = JSON.parse(localStorage.getItem("highScores"));
+        return highScores;
+
+    }
+
+
 
 
 
