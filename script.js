@@ -5,6 +5,7 @@ $(document).ready(function() {
     let showQuestionsElement = $("#question");
     let answerButtons = $("#answer-buttons");
     let timerEl = $(".timer");
+    let scoresHere = $(".listScores");
 
 
     let initials = "";
@@ -126,38 +127,45 @@ $(document).ready(function() {
         currentScore = timer + currentScore;
 
         let highScores = loadHighScores();
-
+        console.log("this is the high score value before" + highScores);
+        console.log(highScores[0].name);
         if (highScores) {
-            highScores.sort((a, b) => (a.score > b.score) ? -1 : 1);
-            highScores.push([{ name: initials, score: currentScore }]);
 
+            highScores.push({ name: initials, score: currentScore });
+            highScores.sort((a, b) => (a.score > b.score) ? -1 : 1);
             if (highScores.length > 5) {
                 highScores.pop();
-
 
             }
         } else {
             highScores = [{ name: initials, score: currentScore }];
-            console.log("this is running");
         }
+        createHighScoreTable(highScores);
+        console.log("high scores before the save" + highScores);
         saveHighScore(highScores);
         clearInterval(timeInterval);
+        console.log("this is reloaded" + loadHighScores());
+    }
 
+    function loadHighScores() {
+        let highScores = JSON.parse(localStorage.getItem("highScores"));
 
-
-
+        return highScores;
     }
 
     function saveHighScore(highScores) {
         localStorage.setItem("highScores", JSON.stringify(highScores));
     }
 
-    function loadHighScores() {
-
-        let highScores = JSON.parse(localStorage.getItem("highScores"));
-        return highScores;
+    function createHighScoreTable(highScores) {
+        for (var i = 0; i < highScores.length; i++) {
+            let newScoreItem = $("<li></li>");
+            newScoreItem.text(highScores[i].name + " " + highScores[i].score);
+            scoresHere.append(newScoreItem);
+        }
 
     }
+
 
 
 })
