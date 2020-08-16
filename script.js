@@ -20,21 +20,21 @@ $(document).ready(function() {
         correctAnswer: "<script>"
     }, {
         question: "How do you say Hello World in an alert box",
-        choices: ["show('Hello World')", "push('Hello World')", "alert('Hello World')", "msg('Hello World')"],
-        correctAnswer: "alert('Hello World')",
+        choices: ["show('Hello World');", "push('Hello World');", "alert('Hello World');", "msg('Hello World');"],
+        correctAnswer: "alert('Hello World');",
 
     }, {
-        question: "what is 4 + 2",
-        choices: ["2", "6", "4", "5"],
-        correctAnswer: "6",
+        question: "Which of the following is NOT a Javascript data type",
+        choices: ["null", "boolean", "undefined", "element"],
+        correctAnswer: "element",
     }, {
-        question: "what is 6 + 2",
-        choices: ["2", "8", "4", "5"],
-        correctAnswer: "8",
+        question: "Which function removes an item from an array",
+        choices: [".push()", ".remove()", ".pop()", ".slice()"],
+        correctAnswer: ".pop()",
     }, {
-        question: "what is 3 + 3 ",
-        choices: ["2", "6", "4", "5"],
-        correctAnswer: "6",
+        question: "Which variable can NOT be changed or altered",
+        choices: ["var", "const", "let", "if"],
+        correctAnswer: "const",
     }]
 
     startButton.on("click", start);
@@ -77,6 +77,7 @@ $(document).ready(function() {
 
 
                 } else {
+                    checkAnswer(questionNum);
                     $("#question-container").empty();
                     gameOver();
 
@@ -90,17 +91,14 @@ $(document).ready(function() {
         function checkAnswer(questionNum) {
             if (event.target.innerText === questions[questionNum].correctAnswer) {
                 alert("good job");
-                currentScore++;
+                currentScore += 5;
+                console.log(currentScore);
             } else {
                 timer -= 10;
+                console.log(currentScore);
 
             }
-
-            console.log(event.target.innerText);
-            console.log("this is the answer " + questions[questionNum].correctAnswer);
-
         }
-
     }
 
     function startTimer() {
@@ -125,16 +123,22 @@ $(document).ready(function() {
         //display the current score
         //compare current score to high score
         //update high score if needed
+        currentScore = timer + currentScore;
+
         let highScores = loadHighScores();
 
         if (highScores) {
-            highScores.push({ name: initials, score: currentScore });
             highScores.sort((a, b) => (a.score > b.score) ? -1 : 1);
+            highScores.push([{ name: initials, score: currentScore }]);
+
             if (highScores.length > 5) {
                 highScores.pop();
+
+
             }
         } else {
             highScores = [{ name: initials, score: currentScore }];
+            console.log("this is running");
         }
         saveHighScore(highScores);
         clearInterval(timeInterval);
@@ -154,19 +158,6 @@ $(document).ready(function() {
         return highScores;
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 })
