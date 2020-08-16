@@ -4,18 +4,16 @@ $(document).ready(function() {
     let questionEl = $("#question-container");
     let showQuestionsElement = $("#question");
     let answerButtons = $("#answer-buttons");
-    let answerButton1 = $("#button1");
-    let answerButton2 = $("#button2");
-    let answerButton3 = $("#button3");
-    let answerButton4 = $("#button4");
     let timerEl = $(".timer");
 
 
     let initials = "";
     let timer = 60;
-    let highScore = "";
+    let highScore = 0;
     let timeInterval;
-    let questionIndex = 0;
+    let currentScore = 0;
+
+
 
     let questions = [{
         question: "What is one + 1",
@@ -43,45 +41,66 @@ $(document).ready(function() {
     startButton.on("click", start);
 
 
-    function start() {
+    function start(event) {
+        event.preventDefault();
+        event.stopPropagation();
         startButton.addClass("hide");
         questionEl.removeClass("hide");
-        setNextQuestion();
+        setNextQuestion(0);
         startTimer();
+        currentScore = 0;
+
+
 
 
     }
 
 
 
-    function setNextQuestion() {
+    function setNextQuestion(questionNum) {
         $("#answer-buttons").empty();
 
 
-
-
-        showQuestionsElement.text(questions[questionIndex].question);
-        for (var i = 0; i < questions[questionIndex].choices.length; i++) {
+        for (var i = 0; i < questions[questionNum].choices.length; i++) {
+            showQuestionsElement.text(questions[questionNum].question);
             let $randomButton = $("<button>");
-            $randomButton.text(questions[questionIndex].choices[i]);
-            $randomButton.on("click", function() {
-                questionIndex++;
-                if (questionIndex < questions.length) {
-                    setNextQuestion();
+            $randomButton.text(questions[questionNum].choices[i]);
+            $randomButton.addClass("buttons");
+
+            $randomButton.on("click", function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                if (questionNum < questions.length - 1) {
+                    checkAnswer(questionNum);
+                    setNextQuestion(questionNum + 1);
+
+
+
                 } else {
-                    console.log("game over");
                     $("#question-container").empty();
                     clearInterval(timeInterval);
+
                 }
-
-                console.log(event);
-
             })
 
             $("#answer-buttons").append($randomButton);
 
         }
 
+        function checkAnswer(questionNum) {
+            if (event.target.innerText === questions[questionNum].correctAnswer) {
+                alert("good job");
+                currentScore++;
+            } else {
+                timer -= 10;
+
+            }
+
+            console.log(event.target.innerText);
+            console.log("this is the answer " + questions[questionNum].correctAnswer);
+
+        }
 
     }
 
@@ -102,9 +121,14 @@ $(document).ready(function() {
 
     }
 
-    function checkAnswer() {
+    function gameOver() {
+        //display the current score
+        //compare current score to high score
+        //update high score if needed
 
-    }
+
+    };
+
 
 
 
