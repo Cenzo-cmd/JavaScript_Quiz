@@ -3,17 +3,15 @@ $(document).ready(function() {
     let startButton = $(".start-button");
     let questionEl = $("#question-container");
     let showQuestionsElement = $("#question");
-    let answerButtons = $("#answer-buttons");
     let timerEl = $(".timer");
     let scoresHere = $(".listScores");
-
+    let pEl = $(".pClass");
+    let endButtons = $(".endingButtons");
 
     let initials = "";
     let timer = 60;
     let timeInterval;
     let currentScore = 0;
-
-
 
     let questions = [{
         question: "Which tag inserts Javascript into the HTML page",
@@ -40,7 +38,6 @@ $(document).ready(function() {
 
     startButton.on("click", start);
 
-
     function start(event) {
         event.preventDefault();
         event.stopPropagation();
@@ -49,13 +46,7 @@ $(document).ready(function() {
         setNextQuestion(0);
         startTimer();
         currentScore = 0;
-
-
-
-
     }
-
-
 
     function setNextQuestion(questionNum) {
         $("#answer-buttons").empty();
@@ -74,61 +65,46 @@ $(document).ready(function() {
                 if (questionNum < questions.length - 1) {
                     checkAnswer(questionNum);
                     setNextQuestion(questionNum + 1);
-
-
-
                 } else {
                     checkAnswer(questionNum);
                     $("#question-container").empty();
                     gameOver();
-
                 }
             })
-
             $("#answer-buttons").append($randomButton);
-
         }
 
         function checkAnswer(questionNum) {
             if (event.target.innerText === questions[questionNum].correctAnswer) {
-                alert("good job");
+                alert("Correct!  You get 5 points.");
                 currentScore += 5;
-                console.log(currentScore);
+
             } else {
+                alert("Wrong!  You will lose 10 seconds off the timer");
                 timer -= 10;
                 console.log(currentScore);
-
             }
         }
     }
 
     function startTimer() {
-        initials = prompt("Please enter you initials for high score");
+        initials = prompt("Please enter your name for high score");
         timeInterval = setInterval(function() {
             if (timer <= -1) {
                 timerEl.text("You are out of time!");
                 questionEl.addClass("hide");
                 gameOver();
-
-
             } else {
                 timer--;
                 timerEl.text("You have " + timer + " seconds left");
-
             }
         }, 1000)
 
     }
 
     function gameOver() {
-        //display the current score
-        //compare current score to high score
-        //update high score if needed
         currentScore = timer + currentScore;
-
         let highScores = loadHighScores();
-        console.log("this is the high score value before" + highScores);
-        console.log(highScores[0].name);
         if (highScores) {
 
             highScores.push({ name: initials, score: currentScore });
@@ -140,16 +116,14 @@ $(document).ready(function() {
         } else {
             highScores = [{ name: initials, score: currentScore }];
         }
+
         createHighScoreTable(highScores);
-        console.log("high scores before the save" + highScores);
         saveHighScore(highScores);
         clearInterval(timeInterval);
-        console.log("this is reloaded" + loadHighScores());
     }
 
     function loadHighScores() {
         let highScores = JSON.parse(localStorage.getItem("highScores"));
-
         return highScores;
     }
 
@@ -159,26 +133,43 @@ $(document).ready(function() {
 
     function createHighScoreTable(highScores) {
         for (var i = 0; i < highScores.length; i++) {
-            let newScoreItem = $("<li></li>");
-            newScoreItem.text(highScores[i].name + " " + highScores[i].score);
+            pEl.text("Top 5 High Scores");
+            let newScoreItem = $("<li></li><br>");
+            newScoreItem.text("Name: " + highScores[i].name + "      Score: " + "  " + highScores[i].score);
             scoresHere.append(newScoreItem);
         }
+        endGameButtons();
+    }
+
+    function endGameButtons() {
+        let restartButton = $("<button>");
+        let clearHighScore = $("<button>");
+        restartButton.text("Restart");
+        clearHighScore.text("Clear high scores");
+        restartButton.addClass("buttons");
+        clearHighScore.addClass("buttons");
+        endButtons.append(restartButton);
+        endButtons.append(clearHighScore);
+
+        clearHighScore.on("click", function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            console.log(event.target);
+            localStorage.clear();
+
+        })
+
+        restartButton.on("click", function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            location.reload();
+
+        })
+
 
     }
 
 
 
+
 })
-
-// function setNextQuestion() {
-// for (var i = 0; i < questions.length; i++) {
-// console.log("this is the length of array" + questions.length)
-// }
-// showQuestionsElement.text(questions[0].question);
-// answerButton1.text(questions[0].choice1);
-// answerButton2.text(questions[0].choice2);
-// answerButton3.text(questions[0].choice3);
-// answerButton4.text(questions[0].choice4);
-
-// console.log(showQuestionsElement);
-// }
