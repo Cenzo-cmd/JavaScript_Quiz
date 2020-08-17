@@ -154,22 +154,14 @@ $(document).ready(function() {
         clearHighScore.on("click", function(event) {
             event.preventDefault();
             event.stopPropagation();
-            console.log(event.target);
             localStorage.clear();
-
+            scoresHere.empty();
         })
 
         restartButton.on("click", function(event) {
             event.preventDefault();
             event.stopPropagation();
             location.reload();
-
         })
-
-
     }
-
-
-
-
 })
