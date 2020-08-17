@@ -2,6 +2,23 @@ body {
     background-color: grey;
 }
 
+h1 {
+    text-align: center;
+}
+
+#question {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+p {
+    text-align: center;
+}
+
+#question.container {
+    text-align: center;
+}
+
 .buttons {
     padding: 40px;
     margin: 10px;
@@ -14,4 +31,26 @@ body {
 
 .hide {
     display: none;
+}
+
+.footer img {
+    width: 60px;
+    padding-right: 10px;
+}
+
+.footer img:hover {
+    transform: skew(-10deg);
+}
+
+.footer h5 {
+    color: white;
+}
+
+.footer {
+    background-color: #212529;
+    text-align: center;
+}
+
+.footer p {
+    color: white;
 }

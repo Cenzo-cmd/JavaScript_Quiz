@@ -22,49 +22,61 @@
                 <li class="nav-item">
                     <a href="https://github.com/Cenzo-cmd" target="_blank" class="nav-link">Github Page</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Portfolio</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
             </ul>
         </div>
     </nav>
 
-    <div class="card main-container">
+    <content>
+        <div class="card main-container">
 
-        <div class="card-body">
-            <h5 class="card-title">JavaScript Quiz</h5>
-            <p class="card-text">Rules: 5 multiple choice questions with a 60 second timer that starts when you press start. </p>
-            <p>You will lose 10 seconds off the timer for incorrect answers.</p>
-            <p>For each correct answer, you will get 5 points. Top 5 high scores will display at the end.</p><br><br>
+            <div class="card-body">
+                <h1 class="card-title">JavaScript Quiz</h1>
+                <p class="card-text">Rules: 5 multiple choice questions with a 60 second timer that starts when you press start. </p>
+                <p>You will lose 10 seconds off the timer for incorrect answers.</p>
+                <p>For each correct answer, you will get 5 points. Top 5 high scores will display at the end.</p><br><br>
 
-            <div id="question-container" class="container hide">
-                <div id="question"></div><br>
-                <div class="row">
-                    <div id="answer-buttons">
+                <div id="question-container" class="container hide">
+                    <div id="question"></div><br>
+                    <div class="row">
+                        <div id="answer-buttons">
 
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="page-controls">
-                <button id="start" class="start-button buttons">Start</button>
-                <button class="restart buttons hide">Restart</button>
-            </div>
-            <div class="timer">Timer: 60 seconds</div><br>
-            <div class="highScores">
-                <p class="pClass"></p>
-                <ul class="listScores">
+                <div class="page-controls">
+                    <button id="start" class="start-button buttons">Start</button>
+                    <button class="restart buttons hide">Restart</button>
+                </div>
+                <div class="timer">Timer: 60 seconds</div><br>
+                <div class="highScores">
+                    <h2 class="pClass"></h2>
+                    <ul class="listScores">
 
-                </ul>
+                    </ul>
+                </div>
+                <div class="endingButtons">
+
+                </div>
             </div>
-            <div class="endingButtons">
+        </div>
+    </content>
+
+    <footer>
+        <div class="footer">
+            <div class=" container1 ">
+                <h5 class="card-title ">Check me out on social media!</h5>
+                <a href="https://www.linkedin.com " target="_blank "><img src="./Assets/Images/linkedin.png " alt="Linkedin logo "></a>
+                <a href="https://www.facebook.com " target="_blank "><img src="./Assets/Images/facebook.png " alt="Facebook logo "></a>
+                <a href="https://www.github.com " target="_blank "><img src="./Assets/Images/github.png " alt="Github logo"></a>
+                <p>Copyright &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script>
+                </p>
 
             </div>
         </div>
-
-    </div>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
