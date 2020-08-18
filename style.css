@@ -25,6 +25,10 @@ p {
     border-radius: 5px;
 }
 
+.buttons:hover {
+    transform: scale(1.2);
+}
+
 .card {
     width: 80% auto;
 }
